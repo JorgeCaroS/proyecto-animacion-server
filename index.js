@@ -6,6 +6,21 @@ const GridFsStorage = require("multer-gridfs-storage");
 const multer = require("multer");
 const Grid = require("gridfs-stream");
 const crypto = require("crypto");
+const serialPort = require('serialport');
+
+const port = new serialPort(
+  'COM3',
+  {baudRate:9600},
+  true
+);
+
+const parser = new serialPort.parsers.Readline();
+
+port.pipe(parser);
+
+parser.on('data', (line) => {
+  console.log(line)
+});
 
 
 
