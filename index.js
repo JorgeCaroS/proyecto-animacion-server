@@ -18,9 +18,9 @@ const parser = new serialPort.parsers.Readline();
 
 port.pipe(parser);
 
-parser.on('data', (line) => {
+/* parser.on('data', (line) => {
   console.log(line)
-});
+}); */
 
 
 
@@ -53,8 +53,22 @@ app.use("/api/escenarios", escenariosRouter);
 
 
 ////////////////////////////////////////////
+var mydata=[] ;
+parser.on('data',  (line) => {
+    
+  //console.log(line);
+   mydata.push(line);
+   console.log(mydata[mydata.length-1])
+  
+}); 
 
-
+app.get('/read', async(req, res) =>{
+  
+   
+  
+  res.send({"letra": (mydata[mydata.length-1])})
+  
+})
 
 ////////////////////////////////////////////////
 
